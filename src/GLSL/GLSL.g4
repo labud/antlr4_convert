@@ -65,14 +65,15 @@ float_num: FLOAT_NUM;
 bool_num : 'true' | 'false';
 
 //元数据类型
-type_specifier: type_specifier_nonarray array_specifier?;
+type_specifier: type_specifier_nonarray array_specifier*;
 
 type_specifier_nonarray
     :   basic_type
     |   IDENTIFIER
     ;
 
-array_specifier :  (LEFT_BRACKET constant_expression? RIGHT_BRACKET)+;
+array_specifier :   LEFT_BRACKET expression? RIGHT_BRACKET;
+struct_specifier:   DOT expression;
 
 basic_type
     :   void_type
@@ -84,13 +85,7 @@ basic_type
 
 void_type : 'void';
 
-scala_type
-    :   'bool'
-    |   'int'
-    |   'uint'
-    |   'float'
-    |   'double'
-    ;
+scala_type: SCALA;
 
 vector_type: VECTOR;
 
@@ -126,13 +121,10 @@ expression
     ;
 
 primary_expression
-    : constant_expression
-    | basic_type LEFT_PAREN (expression  (COMMA expression)*)? RIGHT_PAREN
-    | function_call
-    | array_expressoin
-    | struct_expression
-    | LEFT_PAREN expression RIGHT_PAREN
-    | IDENTIFIER
+    :   constant_expression
+    |   basic_type LEFT_PAREN (expression  (COMMA expression)*)? RIGHT_PAREN
+    |   LEFT_PAREN type_specifier RIGHT_PAREN expression
+    |   left_value  array_struct_selection?
     ;
 
 constant_expression
@@ -141,9 +133,9 @@ constant_expression
     |   bool_num
     ;
 
-array_expressoin : IDENTIFIER (LEFT_BRACKET integer RIGHT_BRACKET)+;
+left_value: function_call |   LEFT_PAREN expression RIGHT_PAREN | IDENTIFIER;
 
-struct_expression : IDENTIFIER (DOT IDENTIFIER)+;
+array_struct_selection: (array_specifier | struct_specifier)+;
 
 assignment_expression: ASSIGNMENT_OP expression;
 
@@ -201,7 +193,7 @@ declaration_statement
     ;
 
 simple_declaration: type_qualifier? type_specifier  simple_declarator (COMMA simple_declarator)*;
-simple_declarator: IDENTIFIER array_specifier? (assignment_expression)?;
+simple_declarator: left_value array_specifier* (assignment_expression)?;
 
 struct_declaration: type_qualifier? STRUCT IDENTIFIER LEFT_BRACE (simple_declaration SEMICOLON)+ RIGHT_BRACE;
 
@@ -209,7 +201,7 @@ struct_declaration: type_qualifier? STRUCT IDENTIFIER LEFT_BRACE (simple_declara
 function_definition_statement: function_definition;
 
 //赋值语句
-assignment_statement: IDENTIFIER (assignment_expression | arithmetic_assignment_expression);
+assignment_statement: left_value array_struct_selection? (assignment_expression | arithmetic_assignment_expression);
 
 //表达式语句
 expression_statement: expression;
@@ -299,6 +291,14 @@ FLOAT_NUM
     ;
 
 //元数据类型
+SCALA
+    :   'bool'
+    |   'int'
+    |   'uint'
+    |   'float'
+    |   'double'
+    ;
+
 VECTOR: ('d'|'i'|'b'|'u')? 'vec' [2-4];
 
 MATRIX: 'd'? 'mat'[2-4] ('x'[2-4])?;

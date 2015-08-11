@@ -16,6 +16,18 @@ public class GLSLBaseListener implements GLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterProg(GLSLParser.ProgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProg(GLSLParser.ProgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPreprocessor(GLSLParser.PreprocessorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -208,6 +220,18 @@ public class GLSLBaseListener implements GLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStruct_specifier(GLSLParser.Struct_specifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStruct_specifier(GLSLParser.Struct_specifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBasic_type(GLSLParser.Basic_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -352,25 +376,25 @@ public class GLSLBaseListener implements GLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray_expressoin(GLSLParser.Array_expressoinContext ctx) { }
+	@Override public void enterLeft_value(GLSLParser.Left_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray_expressoin(GLSLParser.Array_expressoinContext ctx) { }
+	@Override public void exitLeft_value(GLSLParser.Left_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStruct_expression(GLSLParser.Struct_expressionContext ctx) { }
+	@Override public void enterArray_struct_selection(GLSLParser.Array_struct_selectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStruct_expression(GLSLParser.Struct_expressionContext ctx) { }
+	@Override public void exitArray_struct_selection(GLSLParser.Array_struct_selectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -400,18 +424,6 @@ public class GLSLBaseListener implements GLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_declaration(GLSLParser.Function_declarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunction_declaration(GLSLParser.Function_declarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunction_definition(GLSLParser.Function_definitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -419,6 +431,18 @@ public class GLSLBaseListener implements GLSLListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_definition(GLSLParser.Function_definitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_declaration(GLSLParser.Function_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_declaration(GLSLParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

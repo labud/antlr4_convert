@@ -11,6 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface GLSLVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link GLSLParser#prog}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProg(GLSLParser.ProgContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GLSLParser#preprocessor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -107,6 +113,12 @@ public interface GLSLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArray_specifier(GLSLParser.Array_specifierContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GLSLParser#struct_specifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStruct_specifier(GLSLParser.Struct_specifierContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GLSLParser#basic_type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -179,17 +191,17 @@ public interface GLSLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConstant_expression(GLSLParser.Constant_expressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GLSLParser#array_expressoin}.
+	 * Visit a parse tree produced by {@link GLSLParser#left_value}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArray_expressoin(GLSLParser.Array_expressoinContext ctx);
+	T visitLeft_value(GLSLParser.Left_valueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GLSLParser#struct_expression}.
+	 * Visit a parse tree produced by {@link GLSLParser#array_struct_selection}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStruct_expression(GLSLParser.Struct_expressionContext ctx);
+	T visitArray_struct_selection(GLSLParser.Array_struct_selectionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GLSLParser#assignment_expression}.
 	 * @param ctx the parse tree
@@ -203,17 +215,17 @@ public interface GLSLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArithmetic_assignment_expression(GLSLParser.Arithmetic_assignment_expressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GLSLParser#function_declaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction_declaration(GLSLParser.Function_declarationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link GLSLParser#function_definition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunction_definition(GLSLParser.Function_definitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GLSLParser#function_declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_declaration(GLSLParser.Function_declarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GLSLParser#function_call}.
 	 * @param ctx the parse tree

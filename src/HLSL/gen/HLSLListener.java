@@ -48,26 +48,6 @@ public interface HLSLListener extends ParseTreeListener {
 	 */
 	void exitType_qualifier(HLSLParser.Type_qualifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HLSLParser#layout_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void enterLayout_qualifier(HLSLParser.Layout_qualifierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HLSLParser#layout_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void exitLayout_qualifier(HLSLParser.Layout_qualifierContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HLSLParser#layout_qualifier_id}.
-	 * @param ctx the parse tree
-	 */
-	void enterLayout_qualifier_id(HLSLParser.Layout_qualifier_idContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HLSLParser#layout_qualifier_id}.
-	 * @param ctx the parse tree
-	 */
-	void exitLayout_qualifier_id(HLSLParser.Layout_qualifier_idContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link HLSLParser#storage_qualifier}.
 	 * @param ctx the parse tree
 	 */
@@ -78,45 +58,15 @@ public interface HLSLListener extends ParseTreeListener {
 	 */
 	void exitStorage_qualifier(HLSLParser.Storage_qualifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HLSLParser#precision_qualifier}.
+	 * Enter a parse tree produced by {@link HLSLParser#type_modifier}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrecision_qualifier(HLSLParser.Precision_qualifierContext ctx);
+	void enterType_modifier(HLSLParser.Type_modifierContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HLSLParser#precision_qualifier}.
+	 * Exit a parse tree produced by {@link HLSLParser#type_modifier}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrecision_qualifier(HLSLParser.Precision_qualifierContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HLSLParser#interpolation_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void enterInterpolation_qualifier(HLSLParser.Interpolation_qualifierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HLSLParser#interpolation_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void exitInterpolation_qualifier(HLSLParser.Interpolation_qualifierContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HLSLParser#invariant_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void enterInvariant_qualifier(HLSLParser.Invariant_qualifierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HLSLParser#invariant_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void exitInvariant_qualifier(HLSLParser.Invariant_qualifierContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HLSLParser#precise_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrecise_qualifier(HLSLParser.Precise_qualifierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HLSLParser#precise_qualifier}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrecise_qualifier(HLSLParser.Precise_qualifierContext ctx);
+	void exitType_modifier(HLSLParser.Type_modifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HLSLParser#integer}.
 	 * @param ctx the parse tree
@@ -177,6 +127,16 @@ public interface HLSLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArray_specifier(HLSLParser.Array_specifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HLSLParser#struct_specifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterStruct_specifier(HLSLParser.Struct_specifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HLSLParser#struct_specifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitStruct_specifier(HLSLParser.Struct_specifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HLSLParser#basic_type}.
 	 * @param ctx the parse tree
@@ -298,25 +258,25 @@ public interface HLSLListener extends ParseTreeListener {
 	 */
 	void exitConstant_expression(HLSLParser.Constant_expressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HLSLParser#array_expressoin}.
+	 * Enter a parse tree produced by {@link HLSLParser#left_value}.
 	 * @param ctx the parse tree
 	 */
-	void enterArray_expressoin(HLSLParser.Array_expressoinContext ctx);
+	void enterLeft_value(HLSLParser.Left_valueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HLSLParser#array_expressoin}.
+	 * Exit a parse tree produced by {@link HLSLParser#left_value}.
 	 * @param ctx the parse tree
 	 */
-	void exitArray_expressoin(HLSLParser.Array_expressoinContext ctx);
+	void exitLeft_value(HLSLParser.Left_valueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HLSLParser#struct_expression}.
+	 * Enter a parse tree produced by {@link HLSLParser#array_struct_selection}.
 	 * @param ctx the parse tree
 	 */
-	void enterStruct_expression(HLSLParser.Struct_expressionContext ctx);
+	void enterArray_struct_selection(HLSLParser.Array_struct_selectionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HLSLParser#struct_expression}.
+	 * Exit a parse tree produced by {@link HLSLParser#array_struct_selection}.
 	 * @param ctx the parse tree
 	 */
-	void exitStruct_expression(HLSLParser.Struct_expressionContext ctx);
+	void exitArray_struct_selection(HLSLParser.Array_struct_selectionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HLSLParser#assignment_expression}.
 	 * @param ctx the parse tree
@@ -477,6 +437,16 @@ public interface HLSLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSimple_declarator(HLSLParser.Simple_declaratorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HLSLParser#cbufer_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterCbufer_declaration(HLSLParser.Cbufer_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HLSLParser#cbufer_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitCbufer_declaration(HLSLParser.Cbufer_declarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HLSLParser#struct_declaration}.
 	 * @param ctx the parse tree

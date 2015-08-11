@@ -64,30 +64,6 @@ public class HLSLBaseListener implements HLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLayout_qualifier(HLSLParser.Layout_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLayout_qualifier(HLSLParser.Layout_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLayout_qualifier_id(HLSLParser.Layout_qualifier_idContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLayout_qualifier_id(HLSLParser.Layout_qualifier_idContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterStorage_qualifier(HLSLParser.Storage_qualifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -100,49 +76,13 @@ public class HLSLBaseListener implements HLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrecision_qualifier(HLSLParser.Precision_qualifierContext ctx) { }
+	@Override public void enterType_modifier(HLSLParser.Type_modifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrecision_qualifier(HLSLParser.Precision_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInterpolation_qualifier(HLSLParser.Interpolation_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInterpolation_qualifier(HLSLParser.Interpolation_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInvariant_qualifier(HLSLParser.Invariant_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInvariant_qualifier(HLSLParser.Invariant_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrecise_qualifier(HLSLParser.Precise_qualifierContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrecise_qualifier(HLSLParser.Precise_qualifierContext ctx) { }
+	@Override public void exitType_modifier(HLSLParser.Type_modifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -215,6 +155,18 @@ public class HLSLBaseListener implements HLSLListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitArray_specifier(HLSLParser.Array_specifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStruct_specifier(HLSLParser.Struct_specifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStruct_specifier(HLSLParser.Struct_specifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -364,25 +316,25 @@ public class HLSLBaseListener implements HLSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray_expressoin(HLSLParser.Array_expressoinContext ctx) { }
+	@Override public void enterLeft_value(HLSLParser.Left_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray_expressoin(HLSLParser.Array_expressoinContext ctx) { }
+	@Override public void exitLeft_value(HLSLParser.Left_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStruct_expression(HLSLParser.Struct_expressionContext ctx) { }
+	@Override public void enterArray_struct_selection(HLSLParser.Array_struct_selectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStruct_expression(HLSLParser.Struct_expressionContext ctx) { }
+	@Override public void exitArray_struct_selection(HLSLParser.Array_struct_selectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -575,6 +527,18 @@ public class HLSLBaseListener implements HLSLListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSimple_declarator(HLSLParser.Simple_declaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCbufer_declaration(HLSLParser.Cbufer_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCbufer_declaration(HLSLParser.Cbufer_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

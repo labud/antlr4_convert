@@ -21,41 +21,26 @@ VERSOIN_PROFILE
 //类型修饰语
 type_qualifier
     :   (storage_qualifier
-    |   layout_qualifier
-    |   precision_qualifier
-    |   interpolation_qualifier
-    |   invariant_qualifier
-    |   precise_qualifier)+
+    |   type_modifier
+    )+
     ;
-
-
-layout_qualifier:   'layout (' layout_qualifier_id  (COMMA layout_qualifier_id)*RIGHT_PAREN;
-layout_qualifier_id: IDENTIFIER | IDENTIFIER '=' constant_expression | 'shared';
 
 storage_qualifier
-    :   'const'
-    |   'in'
-    |   'out'
+    :   'static'
     |   'uniform'
-    |   'buffer'
+    |   'extern'
+    |   'volatile'
     |   'shared'
+    |   'groupshared'
+    |   'nointerpolation'
+    |   'precise'
     ;
 
-precision_qualifier
-    :   'high_precision'
-    |   'medium_precision'
-    |   'low_precision'
+type_modifier
+    :   'const'
+    |   'row_major'
+    |   'column_major'
     ;
-
-interpolation_qualifier
-    :   'smooth'
-    |   'flat'
-    |   'noperspective'
-    ;
-
-invariant_qualifier:    'invariant';
-
-precise_qualifier:    'precise';
 
 //元数据
 integer: DECIMAL |  OCTAL | HEX ;
@@ -65,14 +50,15 @@ float_num: FLOAT_NUM;
 bool_num : 'true' | 'false';
 
 //元数据类型
-type_specifier: type_specifier_nonarray array_specifier?;
+type_specifier: type_specifier_nonarray array_specifier*;
 
 type_specifier_nonarray
     :   basic_type
     |   IDENTIFIER
     ;
 
-array_specifier :  (LEFT_BRACKET constant_expression? RIGHT_BRACKET)+;
+array_specifier :   LEFT_BRACKET expression? RIGHT_BRACKET;
+struct_specifier:   DOT expression;
 
 basic_type
     :   void_type
@@ -84,13 +70,7 @@ basic_type
 
 void_type : 'void';
 
-scala_type
-    :   'bool'
-    |   'int'
-    |   'uint'
-    |   'float'
-    |   'double'
-    ;
+scala_type: SCALA;
 
 vector_type: VECTOR;
 
@@ -126,13 +106,10 @@ expression
     ;
 
 primary_expression
-    : constant_expression
-    | basic_type LEFT_PAREN (expression  (COMMA expression)*)? RIGHT_PAREN
-    | function_call
-    | array_expressoin
-    | struct_expression
-    | LEFT_PAREN expression RIGHT_PAREN
-    | IDENTIFIER
+    :   constant_expression
+    |   basic_type LEFT_PAREN (expression  (COMMA expression)*)? RIGHT_PAREN
+    |   LEFT_PAREN type_specifier RIGHT_PAREN expression
+    |   left_value  array_struct_selection?
     ;
 
 constant_expression
@@ -141,9 +118,9 @@ constant_expression
     |   bool_num
     ;
 
-array_expressoin : IDENTIFIER (LEFT_BRACKET integer RIGHT_BRACKET)+;
+left_value: function_call |   LEFT_PAREN expression RIGHT_PAREN | IDENTIFIER;
 
-struct_expression : IDENTIFIER (DOT IDENTIFIER)+;
+array_struct_selection: (array_specifier | struct_specifier)+;
 
 assignment_expression: ASSIGNMENT_OP expression;
 
@@ -152,18 +129,19 @@ arithmetic_assignment_expression: ARITHMETIC_ASSIGNMENT_OP expression;
 //函数
 function_definition
     : return_Type function_name
-        LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )? RIGHT_PAREN LEFT_BRACE
+        LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )? RIGHT_PAREN (COLON SEMANTICS)? LEFT_BRACE
             statement_list
         RIGHT_BRACE
     ;
 
-function_declaration: return_Type function_name LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )?RIGHT_PAREN;
+function_declaration: return_Type function_name LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )?RIGHT_PAREN
+    (COLON SEMANTICS)?;
 
 function_call: function_name LEFT_PAREN (expression (COMMA expression)*)? RIGHT_PAREN;
 
 return_Type: type_specifier;
 
-function_name: IDENTIFIER;
+function_name: FUNC_KEYWORD | IDENTIFIER;
 
 func_decl_member: type_specifier IDENTIFIER;
 
@@ -196,20 +174,22 @@ basic_statement
 //声明语句(含初始化)
 declaration_statement
     :   struct_declaration
+    |   cbufer_declaration
     |   simple_declaration
     |   function_declaration
     ;
 
 simple_declaration: type_qualifier? type_specifier  simple_declarator (COMMA simple_declarator)*;
-simple_declarator: IDENTIFIER array_specifier? (assignment_expression)?;
+simple_declarator: left_value array_specifier* (COLON SEMANTICS)? (assignment_expression)?;
 
+cbufer_declaration: CBUFFER IDENTIFIER LEFT_BRACE (simple_declaration SEMICOLON)+ RIGHT_BRACE;
 struct_declaration: type_qualifier? STRUCT IDENTIFIER LEFT_BRACE (simple_declaration SEMICOLON)+ RIGHT_BRACE;
 
 //函数定义语句
 function_definition_statement: function_definition;
 
 //赋值语句
-assignment_statement: IDENTIFIER (assignment_expression | arithmetic_assignment_expression);
+assignment_statement: left_value array_struct_selection? (assignment_expression | arithmetic_assignment_expression);
 
 //表达式语句
 expression_statement: expression;
@@ -253,6 +233,7 @@ jump_statement
  *词法
  */
 
+CBUFFER: 'cbuffer';
 STRUCT: 'struct';
 
 IF: 'if';
@@ -287,10 +268,34 @@ SEMICOLON: ';';
 COMMA: ',';
 SHARP: '#';
 
+//HLSL SEMANTICS
+
+SEMANTICS
+    :   SHADER_SEMANTICS
+    |   SV_SEMANTICS
+    ;
+
+SHADER_SEMANTICS
+    :   'COLOR' DECIMAL?
+    |   'POSITION' DECIMAL?
+    |   'TEXCOORD' DECIMAL?
+    |   'NORMAL' DECIMAL?
+    ;
+
+SV_SEMANTICS
+    :   'SV_POSITION'
+    |   'SV_TARGET' OCTAL_DIGIT?
+    ;
+
+//GLSL保留函数
+FUNC_KEYWORD
+    :   'dot'
+    ;
+
 //元数据
-DECIMAL: [1-9]  DIGIT* INTEGER_SUFFIX?;
-OCTAL: '0' OCTAL_DIGIT* INTEGER_SUFFIX?;
-HEX:  ('0x' | '0X') HEX_DIGIT+ INTEGER_SUFFIX?;
+DECIMAL:   DIGIT+ INTEGER_SUFFIX?;
+OCTAL: '\\' OCTAL_DIGIT* INTEGER_SUFFIX?;
+HEX:  '\\x' HEX_DIGIT+ INTEGER_SUFFIX?;
 
 FLOAT_NUM
     :   DIGIT+ DOT DIGIT* EXPONENT? FLOAT_SUFFIX?
@@ -299,9 +304,23 @@ FLOAT_NUM
     ;
 
 //元数据类型
-VECTOR: ('d'|'i'|'b'|'u')? 'vec' [2-4];
+SCALA
+    :   'bool'
+    |   'int'
+    |   'half'
+    |   'float'
+    |   'double'
+    ;
 
-MATRIX: 'd'? 'mat'[2-4] ('x'[2-4])?;
+VECTOR
+    :   SCALA[2-4]
+    |   'vector'
+    ;
+
+MATRIX
+    :   SCALA[2-4] ('x'[2-4])?
+    |   'matrix'
+    ;
 
 FLOAT_OPAQUE: BASIC_OPAQUE_TYPE |
     ( 'sampler1DShadow' | 'sampler2DShadow' | 'sampler2DRectShadow'
@@ -357,20 +376,19 @@ fragment
 OCTAL_DIGIT : [0-7];
 
 fragment
-INTEGER_SUFFIX: 'u' | 'U';
+INTEGER_SUFFIX: 'u' | 'U' | 'l' | 'L';
 
 fragment
 EXPONENT : ('e'|'E') ADDDIV_OP? ('0'..'9')+ ;
 
 fragment
-FLOAT_SUFFIX: 'f' | 'F' | 'lf' | 'LF';
+FLOAT_SUFFIX: 'f' | 'F' | 'h' | 'H';
 
 
 fragment
 LETTER
     :   [a-z]
     |   [A-Z]
-    |   '_'
     ;
 
 IDENTIFIER

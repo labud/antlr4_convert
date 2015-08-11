@@ -8,6 +8,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface GLSLListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link GLSLParser#prog}.
+	 * @param ctx the parse tree
+	 */
+	void enterProg(GLSLParser.ProgContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GLSLParser#prog}.
+	 * @param ctx the parse tree
+	 */
+	void exitProg(GLSLParser.ProgContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GLSLParser#preprocessor}.
 	 * @param ctx the parse tree
 	 */
@@ -168,6 +178,16 @@ public interface GLSLListener extends ParseTreeListener {
 	 */
 	void exitArray_specifier(GLSLParser.Array_specifierContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GLSLParser#struct_specifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterStruct_specifier(GLSLParser.Struct_specifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GLSLParser#struct_specifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitStruct_specifier(GLSLParser.Struct_specifierContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GLSLParser#basic_type}.
 	 * @param ctx the parse tree
 	 */
@@ -288,25 +308,25 @@ public interface GLSLListener extends ParseTreeListener {
 	 */
 	void exitConstant_expression(GLSLParser.Constant_expressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GLSLParser#array_expressoin}.
+	 * Enter a parse tree produced by {@link GLSLParser#left_value}.
 	 * @param ctx the parse tree
 	 */
-	void enterArray_expressoin(GLSLParser.Array_expressoinContext ctx);
+	void enterLeft_value(GLSLParser.Left_valueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GLSLParser#array_expressoin}.
+	 * Exit a parse tree produced by {@link GLSLParser#left_value}.
 	 * @param ctx the parse tree
 	 */
-	void exitArray_expressoin(GLSLParser.Array_expressoinContext ctx);
+	void exitLeft_value(GLSLParser.Left_valueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GLSLParser#struct_expression}.
+	 * Enter a parse tree produced by {@link GLSLParser#array_struct_selection}.
 	 * @param ctx the parse tree
 	 */
-	void enterStruct_expression(GLSLParser.Struct_expressionContext ctx);
+	void enterArray_struct_selection(GLSLParser.Array_struct_selectionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GLSLParser#struct_expression}.
+	 * Exit a parse tree produced by {@link GLSLParser#array_struct_selection}.
 	 * @param ctx the parse tree
 	 */
-	void exitStruct_expression(GLSLParser.Struct_expressionContext ctx);
+	void exitArray_struct_selection(GLSLParser.Array_struct_selectionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GLSLParser#assignment_expression}.
 	 * @param ctx the parse tree
@@ -328,16 +348,6 @@ public interface GLSLListener extends ParseTreeListener {
 	 */
 	void exitArithmetic_assignment_expression(GLSLParser.Arithmetic_assignment_expressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GLSLParser#function_declaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction_declaration(GLSLParser.Function_declarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GLSLParser#function_declaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction_declaration(GLSLParser.Function_declarationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GLSLParser#function_definition}.
 	 * @param ctx the parse tree
 	 */
@@ -347,6 +357,16 @@ public interface GLSLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunction_definition(GLSLParser.Function_definitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GLSLParser#function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_declaration(GLSLParser.Function_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GLSLParser#function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_declaration(GLSLParser.Function_declarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GLSLParser#function_call}.
 	 * @param ctx the parse tree
