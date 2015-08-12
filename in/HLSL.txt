@@ -1,35 +1,27 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: light.vs
+// Filename: light.ps
 ////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////
 // GLOBALS //
 /////////////
-cbuffer MatrixBuffer
-{
-	matrix worldMatrix;
-	matrix viewMatrix;
-	matrix projectionMatrix;
-};
+Texture2D shaderTexture;
+SamplerState SampleType;
 
-cbuffer CameraBuffer
+cbuffer LightBuffer
 {
-    float3 cameraPosition;
-	float padding;
+	float4 ambientColor;
+	float4 diffuseColor;
+    float3 lightDirection;
+    float specularPower;
+    float4 specularColor;
 };
 
 
 //////////////
 // TYPEDEFS //
 //////////////
-struct VertexInputType
-{
-    float4 position : POSITION;
-    float2 tex : TEXCOORD0;
-	float3 normal : NORMAL;
-};
-
 struct PixelInputType
 {
     float4 position : SV_POSITION;
@@ -40,39 +32,53 @@ struct PixelInputType
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Vertex Shader
+// Pixel Shader
 ////////////////////////////////////////////////////////////////////////////////
-PixelInputType LightVertexShader(VertexInputType input)
+float4 LightPixelShader(PixelInputType input) : SV_TARGET
 {
-    PixelInputType output;
-	float4 worldPosition;
+	float4 textureColor;
+	float3 lightDir;
+	float lightIntensity;
+	float4 color;
+	float3 reflection;
+    float4 specular;
 
 
-	// Change the position vector to be 4 units for proper matrix calculations.
-    input.position.w = 1.0f;
+	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
+	textureColor = shaderTexture.Sample(SampleType, input.tex);
 
-	// Calculate the position of the vertex against the world, view, and projection matrices.
-    output.position = mul(input.position, worldMatrix);
-    output.position = mul(output.position, viewMatrix);
-    output.position = mul(output.position, projectionMatrix);
-    
-	// Store the texture coordinates for the pixel shader.
-	output.tex = input.tex;
-    
-	// Calculate the normal vector against the world matrix only.
-    output.normal = mul(input.normal, (float3x3)worldMatrix);
-	
-    // Normalize the normal vector.
-    output.normal = normalize(output.normal);
+	// Set the default output color to the ambient light value for all pixels.
+    color = ambientColor;
 
-	// Calculate the position of the vertex in the world.
-    worldPosition = mul(input.position, worldMatrix);
+	// Initialize the specular color.
+	specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-    // Determine the viewing direction based on the position of the camera and the position of the vertex in the world.
-    output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
-	
-    // Normalize the viewing direction vector.
-    output.viewDirection = normalize(output.viewDirection);
+	// Invert the light direction for calculations.
+    lightDir = -lightDirection;
 
-    return output;
+    // Calculate the amount of light on this pixel.
+    lightIntensity = saturate(dot(input.normal, lightDir));
+
+	if(lightIntensity > 0.0f)
+    {
+        // Determine the final diffuse color based on the diffuse color and the amount of light intensity.
+        color += (diffuseColor * lightIntensity);
+
+	    // Saturate the ambient and diffuse color.
+		color = saturate(color);
+
+		// Calculate the reflection vector based on the light intensity, normal vector, and light direction.
+        reflection = normalize(2 * lightIntensity * input.normal - lightDir); 
+
+		// Determine the amount of specular light based on the reflection vector, viewing direction, and specular power.
+        specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+    }
+
+    // Multiply the texture pixel and the input color to get the textured result.
+    color = color * textureColor;
+
+	// Add the specular component last to the output color.
+    color = saturate(color + specular);
+
+    return color;
 }

@@ -1,5 +1,8 @@
 grammar GLSL;
 
+prog:
+    preprocessor* statement_list;
+
 //宏定义
 preprocessor
     :   SHARP version_pre
@@ -62,14 +65,15 @@ float_num: FLOAT_NUM;
 bool_num : 'true' | 'false';
 
 //元数据类型
-type_specifier: type_specifier_nonarray array_specifier?;
+type_specifier: type_specifier_nonarray array_specifier*;
 
 type_specifier_nonarray
     :   basic_type
     |   IDENTIFIER
     ;
 
-array_specifier :  (LEFT_BRACKET constant_expression? RIGHT_BRACKET)+;
+array_specifier :   LEFT_BRACKET expression? RIGHT_BRACKET;
+struct_specifier:   DOT expression;
 
 basic_type
     :   void_type
@@ -81,13 +85,7 @@ basic_type
 
 void_type : 'void';
 
-scala_type
-    :   'bool'
-    |   'int'
-    |   'uint'
-    |   'float'
-    |   'double'
-    ;
+scala_type: SCALA;
 
 vector_type: VECTOR;
 
@@ -123,13 +121,10 @@ expression
     ;
 
 primary_expression
-    : constant_expression
-    | basic_type LEFT_PAREN (expression  (COMMA expression)*)? RIGHT_PAREN
-    | function_call
-    | array_expressoin
-    | struct_expression
-    | LEFT_PAREN expression RIGHT_PAREN
-    | IDENTIFIER
+    :   constant_expression
+    |   basic_type LEFT_PAREN (expression  (COMMA expression)*)? RIGHT_PAREN
+    |   LEFT_PAREN type_specifier RIGHT_PAREN expression
+    |   left_value  array_struct_selection?
     ;
 
 constant_expression
@@ -138,23 +133,23 @@ constant_expression
     |   bool_num
     ;
 
-array_expressoin : IDENTIFIER (LEFT_BRACKET integer RIGHT_BRACKET)+;
+left_value: function_call |   LEFT_PAREN expression RIGHT_PAREN | IDENTIFIER;
 
-struct_expression : IDENTIFIER (DOT IDENTIFIER)+;
+array_struct_selection: (array_specifier | struct_specifier)+;
 
 assignment_expression: ASSIGNMENT_OP expression;
 
 arithmetic_assignment_expression: ARITHMETIC_ASSIGNMENT_OP expression;
 
 //函数
-function_declaration: return_Type function_name LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )?RIGHT_PAREN;
-
 function_definition
     : return_Type function_name
-        LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )?RIGHT_PARENLEFT_BRACE
-            statement*
+        LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )? RIGHT_PAREN LEFT_BRACE
+            statement_list
         RIGHT_BRACE
     ;
+
+function_declaration: return_Type function_name LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )?RIGHT_PAREN;
 
 function_call: function_name LEFT_PAREN (expression (COMMA expression)*)? RIGHT_PAREN;
 
@@ -173,7 +168,8 @@ statement
     ;
 
 simple_statement
-    :   basic_statement SEMICOLON
+    :   function_definition_statement
+    |   basic_statement SEMICOLON
     |   selection_statement
     |   switch_statement
     |   case_label
@@ -191,25 +187,28 @@ basic_statement
 
 //声明语句(含初始化)
 declaration_statement
-    : function_declaration
-    | struct_declaration
-    | simple_declaration
+    :   struct_declaration
+    |   simple_declaration
+    |   function_declaration
     ;
 
 simple_declaration: type_qualifier? type_specifier  simple_declarator (COMMA simple_declarator)*;
-simple_declarator: IDENTIFIER array_specifier? (assignment_expression)?;
+simple_declarator: left_value array_specifier* (assignment_expression)?;
 
 struct_declaration: type_qualifier? STRUCT IDENTIFIER LEFT_BRACE (simple_declaration SEMICOLON)+ RIGHT_BRACE;
 
+//函数定义语句
+function_definition_statement: function_definition;
+
 //赋值语句
-assignment_statement: IDENTIFIER (assignment_expression | arithmetic_assignment_expression);
+assignment_statement: left_value array_struct_selection? (assignment_expression | arithmetic_assignment_expression);
 
 //表达式语句
 expression_statement: expression;
 
 //条件选择语句
 selection_statement:  IF LEFT_PAREN expression RIGHT_PAREN selection_rest_statement;
-selection_rest_statement: statement (ELSE statement);
+selection_rest_statement: statement (ELSE statement)? ;
 
 //switch语句
 switch_statement: SWITCH LEFT_PAREN expression RIGHT_PAREN LEFT_BRACE statement_list RIGHT_BRACE;
@@ -292,6 +291,14 @@ FLOAT_NUM
     ;
 
 //元数据类型
+SCALA
+    :   'bool'
+    |   'int'
+    |   'uint'
+    |   'float'
+    |   'double'
+    ;
+
 VECTOR: ('d'|'i'|'b'|'u')? 'vec' [2-4];
 
 MATRIX: 'd'? 'mat'[2-4] ('x'[2-4])?;
