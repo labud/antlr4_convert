@@ -160,6 +160,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitProg(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitProg(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -215,6 +220,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitPreprocessor(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitPreprocessor(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PreprocessorContext preprocessor() throws RecognitionException {
@@ -256,6 +266,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitVersion_pre(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitVersion_pre(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -316,6 +331,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitType_qualifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitType_qualifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -388,6 +408,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitStorage_qualifier(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitStorage_qualifier(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Storage_qualifierContext storage_qualifier() throws RecognitionException {
@@ -429,6 +454,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitType_modifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitType_modifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -475,6 +505,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitInteger(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitInteger(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final IntegerContext integer() throws RecognitionException {
@@ -518,6 +553,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFloat_num(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFloat_num(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Float_numContext float_num() throws RecognitionException {
@@ -553,6 +593,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitBool_num(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitBool_num(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -604,6 +649,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitType_specifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitType_specifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -659,6 +709,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitType_specifier_nonarray(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitType_specifier_nonarray(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -721,6 +776,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitArray_specifier(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitArray_specifier(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Array_specifierContext array_specifier() throws RecognitionException {
@@ -772,6 +832,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitStruct_specifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitStruct_specifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -825,6 +890,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitBasic_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitBasic_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -899,6 +969,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitVoid_type(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitVoid_type(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Void_typeContext void_type() throws RecognitionException {
@@ -935,6 +1010,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitScala_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitScala_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -973,6 +1053,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitVector_type(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitVector_type(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Vector_typeContext vector_type() throws RecognitionException {
@@ -1009,6 +1094,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitMatrix_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitMatrix_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1054,6 +1144,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitOpaque_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitOpaque_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1113,6 +1208,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFloat_opaque_type(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFloat_opaque_type(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Float_opaque_typeContext float_opaque_type() throws RecognitionException {
@@ -1150,6 +1250,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitInt_opaque_type(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitInt_opaque_type(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Int_opaque_typeContext int_opaque_type() throws RecognitionException {
@@ -1186,6 +1291,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitU_int_opaque_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitU_int_opaque_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1242,6 +1352,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitExpression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1491,6 +1606,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitPrimary_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitPrimary_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Primary_expressionContext primary_expression() throws RecognitionException {
@@ -1607,6 +1727,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitConstant_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitConstant_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Constant_expressionContext constant_expression() throws RecognitionException {
@@ -1675,6 +1800,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitLeft_value(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitLeft_value(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1746,6 +1876,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitArray_struct_selection(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitArray_struct_selection(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1819,6 +1954,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitAssignment_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitAssignment_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Assignment_expressionContext assignment_expression() throws RecognitionException {
@@ -1860,6 +2000,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitArithmetic_assignment_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitArithmetic_assignment_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1923,6 +2068,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFunction_definition(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFunction_definition(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2029,6 +2179,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFunction_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFunction_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Function_declarationContext function_declaration() throws RecognitionException {
@@ -2123,6 +2278,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFunction_call(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFunction_call(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Function_callContext function_call() throws RecognitionException {
@@ -2192,6 +2352,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitReturn_Type(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitReturn_Type(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Return_TypeContext return_Type() throws RecognitionException {
@@ -2229,6 +2394,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFunction_name(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFunction_name(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2276,6 +2446,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFunc_decl_member(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFunc_decl_member(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Func_decl_memberContext func_decl_member() throws RecognitionException {
@@ -2319,6 +2494,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitStatement_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitStatement_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2374,6 +2554,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2488,6 +2673,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitSimple_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitSimple_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Simple_statementContext simple_statement() throws RecognitionException {
@@ -2578,6 +2768,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitCompoud_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitCompoud_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Compoud_statementContext compoud_statement() throws RecognitionException {
@@ -2626,6 +2821,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitBasic_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitBasic_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2693,6 +2893,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitDeclaration_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitDeclaration_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2771,6 +2976,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitSimple_declaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitSimple_declaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2852,6 +3062,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitSimple_declarator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitSimple_declarator(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2938,6 +3153,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitCbufer_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitCbufer_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Cbufer_declarationContext cbufer_declaration() throws RecognitionException {
@@ -3014,6 +3234,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitStruct_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitStruct_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Struct_declarationContext struct_declaration() throws RecognitionException {
@@ -3085,6 +3310,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFunction_definition_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFunction_definition_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Function_definition_statementContext function_definition_statement() throws RecognitionException {
@@ -3132,6 +3362,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitAssignment_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitAssignment_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3199,6 +3434,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitExpression_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitExpression_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Expression_statementContext expression_statement() throws RecognitionException {
@@ -3243,6 +3483,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitSelection_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitSelection_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3294,6 +3539,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitSelection_rest_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitSelection_rest_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3353,6 +3603,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitSwitch_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitSwitch_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Switch_statementContext switch_statement() throws RecognitionException {
@@ -3406,6 +3661,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitCase_label(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitCase_label(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3483,6 +3743,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitIteration_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitIteration_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3578,6 +3843,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFor_init_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFor_init_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final For_init_statementContext for_init_statement() throws RecognitionException {
@@ -3644,6 +3914,11 @@ public class HLSLParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFor_cond_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFor_cond_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final For_cond_statementContext for_cond_statement() throws RecognitionException {
@@ -3687,6 +3962,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitFor_rest_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitFor_rest_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3754,6 +4034,11 @@ public class HLSLParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof HLSLListener ) ((HLSLListener)listener).exitJump_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HLSLVisitor ) return ((HLSLVisitor<? extends T>)visitor).visitJump_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

@@ -29,8 +29,8 @@ type_qualifier
     ;
 
 
-layout_qualifier:   'layout (' layout_qualifier_id  (COMMA layout_qualifier_id)*RIGHT_PAREN;
-layout_qualifier_id: IDENTIFIER | IDENTIFIER '=' constant_expression | 'shared';
+layout_qualifier:   'layout' LEFT_PAREN layout_qualifier_id  (COMMA layout_qualifier_id)* RIGHT_PAREN;
+layout_qualifier_id: IDENTIFIER | IDENTIFIER ASSIGNMENT_OP constant_expression | 'shared';
 
 storage_qualifier
     :   'const'

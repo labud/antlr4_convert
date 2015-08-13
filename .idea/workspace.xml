@@ -5,14 +5,87 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d8d8f54-101d-47f5-b280-673d915138c9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GLSL/ConvetVisitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MidSL/HLSLVisitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MidSL/MidSL.g4" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/in/MidSL.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MidSL/MidSL_TEST.java" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\out\production\ShaderParser\GLSL_all.g4" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\GLSL_all.g4" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\HLSL\gen\HLSL.tokens" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\HLSL\gen\HLSLBaseListener.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\HLSL\gen\HLSLLexer.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\HLSL\gen\HLSLLexer.tokens" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\HLSL\gen\HLSLListener.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\antlr4\ShaderParser\src\HLSL\gen\HLSLParser.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/GLSL/GLSL_TEST.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/GLSL/GLSL_TEST.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Arithmetic_assignment_expressionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Arithmetic_assignment_expressionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Array_specifierContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Array_specifierContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Array_struct_selectionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Array_struct_selectionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Assignment_expressionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Assignment_expressionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Assignment_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Assignment_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Basic_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Basic_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Basic_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Basic_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Bool_numContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Bool_numContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Case_labelContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Case_labelContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Cbufer_declarationContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Cbufer_declarationContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Compoud_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Compoud_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Constant_expressionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Constant_expressionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Declaration_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Declaration_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$ExpressionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$ExpressionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Expression_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Expression_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Float_numContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Float_numContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Float_opaque_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Float_opaque_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$For_cond_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$For_cond_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$For_init_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$For_init_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$For_rest_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$For_rest_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Func_decl_memberContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Func_decl_memberContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_callContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_callContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_declarationContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_declarationContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_definitionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_definitionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_definition_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_definition_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_nameContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Function_nameContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Int_opaque_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Int_opaque_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$IntegerContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$IntegerContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Iteration_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Iteration_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Jump_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Jump_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Left_valueContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Left_valueContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Matrix_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Matrix_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Opaque_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Opaque_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$PreprocessorContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$PreprocessorContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Primary_expressionContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Primary_expressionContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$ProgContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$ProgContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Return_TypeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Return_TypeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Scala_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Scala_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Selection_rest_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Selection_rest_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Selection_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Selection_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Simple_declarationContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Simple_declarationContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Simple_declaratorContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Simple_declaratorContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Simple_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Simple_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$StatementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$StatementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Statement_listContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Statement_listContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Storage_qualifierContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Storage_qualifierContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Struct_declarationContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Struct_declarationContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Struct_specifierContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Struct_specifierContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Switch_statementContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Switch_statementContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_modifierContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_modifierContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_qualifierContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_qualifierContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_specifierContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_specifierContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_specifier_nonarrayContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Type_specifier_nonarrayContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$U_int_opaque_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$U_int_opaque_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Vector_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Vector_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Version_preContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Version_preContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Void_typeContext.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser$Void_typeContext.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/gen/HLSLParser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/HLSL_TEST.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/HLSL/HLSL_TEST.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/TOOL.class" afterPath="$PROJECT_DIR$/out/production/ShaderParser/TOOL.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ShaderParser/GLSL/GLSL.g4" afterPath="$PROJECT_DIR$/out/production/ShaderParser/GLSL/GLSL.g4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GLSL/GLSL.g4" afterPath="$PROJECT_DIR$/src/GLSL/GLSL.g4" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GLSL/GLSL_TEST.java" afterPath="$PROJECT_DIR$/src/GLSL/GLSL_TEST.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/HLSL.g4" afterPath="$PROJECT_DIR$/src/HLSL/HLSL.g4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/gen/HLSL.tokens" afterPath="$PROJECT_DIR$/src/HLSL/gen/HLSL.tokens" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/gen/HLSLBaseListener.java" afterPath="$PROJECT_DIR$/src/HLSL/gen/HLSLBaseListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/gen/HLSLLexer.java" afterPath="$PROJECT_DIR$/src/HLSL/gen/HLSLLexer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/gen/HLSLLexer.tokens" afterPath="$PROJECT_DIR$/src/HLSL/gen/HLSLLexer.tokens" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/gen/HLSLListener.java" afterPath="$PROJECT_DIR$/src/HLSL/gen/HLSLListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/gen/HLSLParser.java" afterPath="$PROJECT_DIR$/src/HLSL/gen/HLSLParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HLSL/HLSL_TEST.java" afterPath="$PROJECT_DIR$/src/HLSL/HLSL_TEST.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TOOL.java" afterPath="$PROJECT_DIR$/src/TOOL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ShaderParser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,24 +107,66 @@
     <favorites_list name="ShaderParser" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5166768">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="GLSL.g4" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL.g4">
+          <file leaf-file-name="MidSL_TEST.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/MidSL/MidSL_TEST.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
+                  <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ConvetVisitor.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/GLSL/ConvetVisitor.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="HLSL.g4" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/HLSL/HLSL.g4">
+          <file leaf-file-name="HLSLVisitor.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/MidSL/HLSLVisitor.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-3.3189523">
-                  <caret line="134" column="96" selection-start-line="134" selection-start-column="96" selection-end-line="134" selection-end-column="96" />
+                <state vertical-scroll-proportion="0.4992722">
+                  <caret line="584" column="67" selection-start-line="584" selection-start-column="67" selection-end-line="584" selection-end-column="67" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2782#2783#0" expanded="true" />
+                    <element signature="e#2822#2823#0" expanded="true" />
+                    <element signature="e#2853#2854#0" expanded="true" />
+                    <element signature="e#2893#2894#0" expanded="true" />
+                    <element signature="e#2929#2930#0" expanded="true" />
+                    <element signature="e#3017#3018#0" expanded="true" />
+                    <element signature="e#3051#3052#0" expanded="true" />
+                    <element signature="e#3086#3087#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MidSLParser.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/MidSL/gen/MidSLParser.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="3301" column="24" selection-start-line="3301" selection-start-column="24" selection-end-line="3301" selection-end-column="24" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MidSL.g4" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/MidSL/MidSL.g4">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -61,58 +176,24 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="GLSL_TEST.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL_TEST.java">
+          <file leaf-file-name="MidSL.g4" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/MidSL/MidSL.g4">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="TestVisitor.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/GLSL/TestVisitor.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.82969433">
+                  <caret line="159" column="9" selection-start-line="159" selection-start-column="9" selection-end-line="159" selection-end-column="9" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TOOL.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/TOOL.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-                  <folding />
-                </state>
+          <file leaf-file-name="MidSL.txt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/in/MidSL.txt">
+              <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+                <state />
               </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GLSL_all.g4" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/GLSL_all.g4">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.08782743">
-                  <caret line="508" column="37" selection-start-line="508" selection-start-column="23" selection-end-line="508" selection-end-column="37" />
-                  <folding>
-                    <element signature="e#68#271#1" expanded="false" />
-                    <element signature="e#534#579#1" expanded="false" />
-                    <element signature="e#1443#1520#1" expanded="false" />
-                    <element signature="e#6993#7230#1" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ShaderParser.iml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ShaderParser.iml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state vertical-scroll-proportion="-6.9666667">
+                  <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -154,6 +235,11 @@
         <option value="$PROJECT_DIR$/src/GLSL/GLSL_TEST.java" />
         <option value="$PROJECT_DIR$/src/GLSL/GLSL.g4" />
         <option value="$PROJECT_DIR$/src/HLSL/HLSL.g4" />
+        <option value="$PROJECT_DIR$/src/HLSL/HLSL_TEST.java" />
+        <option value="$PROJECT_DIR$/src/MidSL/MidSL.g4" />
+        <option value="$PROJECT_DIR$/src/MidSL/MidSL_TEST.java" />
+        <option value="$PROJECT_DIR$/in/MidSL.txt" />
+        <option value="$PROJECT_DIR$/src/MidSL/HLSLVisitor.java" />
       </list>
     </option>
   </component>
@@ -172,10 +258,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="406" />
-    <option name="y" value="197" />
-    <option name="width" value="1920" />
-    <option name="height" value="1040" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -184,7 +270,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -200,6 +286,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -246,6 +334,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="MidSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShaderParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShaderParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="HLSL" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -268,10 +374,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShaderParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShaderParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="in" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -296,11 +414,16 @@
     <property name="$PROJECT_DIR$/src/GLSL/GLSL.g4::/gen-listener" value="true" />
     <property name="$PROJECT_DIR$/src/GLSL/GLSL.g4::/gen-visitor" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/auto-gen" value="false" />
+    <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/auto-gen" value="true" />
     <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/output-dir" value="D:\antlr4\ShaderParser\src" />
     <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/package" value="HLSL.gen" />
     <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/gen-listener" value="true" />
-    <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/gen-visitor" value="false" />
+    <property name="$PROJECT_DIR$/src/HLSL/HLSL.g4::/gen-visitor" value="true" />
+    <property name="$PROJECT_DIR$/src/MidSL/MidSL.g4::/auto-gen" value="true" />
+    <property name="$PROJECT_DIR$/src/MidSL/MidSL.g4::/output-dir" value="D:\antlr4\ShaderParser\src" />
+    <property name="$PROJECT_DIR$/src/MidSL/MidSL.g4::/package" value="MidSL.gen" />
+    <property name="$PROJECT_DIR$/src/MidSL/MidSL.g4::/gen-listener" value="true" />
+    <property name="$PROJECT_DIR$/src/MidSL/MidSL.g4::/gen-visitor" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -310,7 +433,7 @@
       <recent name="D:\antlr4\ShaderParser\src\GLSL" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GLSL_TEST">
+  <component name="RunManager" selected="Application.MidSL_TEST">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -595,9 +718,30 @@
       <envs />
       <method />
     </configuration>
-    <list size="2">
+    <configuration default="false" name="MidSL_TEST" type="Application" factoryName="Application" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="MidSL.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="MidSL.MidSL_TEST" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="in\MidSL.txt" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ShaderParser" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.GLSL_TEST" />
       <item index="1" class="java.lang.String" itemvalue="Application.TOOL" />
+      <item index="2" class="java.lang.String" itemvalue="Application.MidSL_TEST" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -615,41 +759,42 @@
       <workItem from="1438872964070" duration="37095000" />
       <workItem from="1439259470992" duration="199000" />
       <workItem from="1439260741029" duration="7534000" />
+      <workItem from="1439451039130" duration="12195000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75747000" />
+    <option name="totallyTimeSpent" value="87942000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="406" y="197" width="1920" height="1040" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32563257" sideWeight="0.37580645" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3372973" sideWeight="0.37420043" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756758" sideWeight="0.49569893" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25412542" sideWeight="0.6236559" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32540542" sideWeight="0.6257996" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.49569893" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22594595" sideWeight="0.37634408" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.49569893" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.113440864" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1130064" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3278328" sideWeight="0.49569893" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25412542" sideWeight="0.37634408" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -672,15 +817,7 @@
     <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL.g4">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HLSL/HLSL.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+          <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -688,7 +825,7 @@
     <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL_TEST.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -711,16 +848,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GLSL_all.g4">
+    <entry file="file://$PROJECT_DIR$/ShaderParser.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#68#271#1" expanded="false" />
-            <element signature="e#534#579#1" expanded="false" />
-            <element signature="e#1443#1520#1" expanded="false" />
-            <element signature="e#6993#7230#1" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -732,10 +864,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HLSL/HLSL.g4">
+    <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL_TEST.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GLSL/TestVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TOOL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -763,19 +921,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GLSL_all.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="508" column="37" selection-start-line="508" selection-start-column="23" selection-end-line="508" selection-end-column="37" />
-          <folding>
-            <element signature="e#68#271#1" expanded="false" />
-            <element signature="e#534#579#1" expanded="false" />
-            <element signature="e#1443#1520#1" expanded="false" />
-            <element signature="e#6993#7230#1" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -838,50 +983,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TOOL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GLSL/TestVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL_TEST.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ShaderParser.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GLSL_all.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08782743">
-          <caret line="508" column="37" selection-start-line="508" selection-start-column="23" selection-end-line="508" selection-end-column="37" />
-          <folding>
-            <element signature="e#68#271#1" expanded="false" />
-            <element signature="e#534#579#1" expanded="false" />
-            <element signature="e#1443#1520#1" expanded="false" />
-            <element signature="e#6993#7230#1" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -893,11 +999,159 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/gen/MidSL.tokens">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HLSL/gen/HLSL.tokens">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TOOL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.063616075">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/in/HLSL.txt">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24133949">
+          <caret line="11" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="83" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HLSL/HLSL_TEST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1484375">
+          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/gen/MidSLBaseListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/gen/MidSLBaseVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8910741">
+          <caret line="424" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="433" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GLSL/TestVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GLSL/GLSL_TEST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="58" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Java/jdk1.8.0_51/src.zip!/java/lang/StringBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3827534">
+          <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/HLSL/HLSL.g4">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.3189523">
-          <caret line="134" column="96" selection-start-line="134" selection-start-column="96" selection-end-line="134" selection-end-column="96" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="407" column="5" selection-start-line="407" selection-start-column="5" selection-end-line="407" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/MidSL_TEST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GLSL/ConvetVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/gen/MidSLParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3301" column="24" selection-start-line="3301" selection-start-column="24" selection-end-line="3301" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/in/MidSL.txt">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.9666667">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/MidSL.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MidSL/HLSLVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4992722">
+          <caret line="584" column="67" selection-start-line="584" selection-start-column="67" selection-end-line="584" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2782#2783#0" expanded="true" />
+            <element signature="e#2822#2823#0" expanded="true" />
+            <element signature="e#2853#2854#0" expanded="true" />
+            <element signature="e#2893#2894#0" expanded="true" />
+            <element signature="e#2929#2930#0" expanded="true" />
+            <element signature="e#3017#3018#0" expanded="true" />
+            <element signature="e#3051#3052#0" expanded="true" />
+            <element signature="e#3086#3087#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,0 +1,62 @@
+samplebuffer uniform ( Sample2D | SamplerState ) gSampler;
+texturebuffer ( texture2D | Texture2D ) mytexture;
+
+struct DirectionalLight                                                             
+{                                                                                   
+    float3 Color;
+    float AmbientIntensity;                                               
+    float DiffuseIntensity;                                              
+    float3 Direction;    
+};            
+
+cbuffer PSBuffer{
+	DirectionalLight gDirectionalLight; 
+	float3 gEyeWorldPos;     
+	float gMatSpecularIntensity;                                                
+	float gSpecularPower;      
+	float3 padding;
+};
+
+inbuffer PixelInputType{
+	float4 glPosition : SV_POSITION;  	
+	float2 TexCoord0 : TEXCOORD0;
+	float3 Normal0 : NORMAL;
+	float3 WorldPos0 : POSITION;  
+}; 
+
+outbuffer PixelOutputType{
+	float4 	FragColor : SV_TARGET;     
+};
+                                                                       
+PixelOutputType main(PixelInputType input){
+	PixelOutputType output;
+
+    float4 AmbientColor = float4(gDirectionalLight.Color, 1.0f) * gDirectionalLight.AmbientIntensity;
+    float3 LightDirection = -gDirectionalLight.Direction;
+    float3 Normal = normalize(input.Normal0);
+
+    float DiffuseFactor = dot(Normal, LightDirection);
+
+    float4 DiffuseColor  = float4(0, 0, 0, 0);
+    float4 SpecularColor = float4(0, 0, 0, 0);
+
+    if (DiffuseFactor > 0) {
+        DiffuseColor = float4(gDirectionalLight.Color * gDirectionalLight.DiffuseIntensity * DiffuseFactor, 1.0f);
+
+        float3 VertexToEye = normalize(gEyeWorldPos - input.WorldPos0);
+        float3 LightReflect = normalize(reflect(gDirectionalLight.Direction, Normal));
+        float SpecularFactor = dot(VertexToEye, LightReflect);
+        if (SpecularFactor > 0) {
+            SpecularFactor = pow(SpecularFactor, gSpecularPower);
+            SpecularColor = float4(gDirectionalLight.Color * gMatSpecularIntensity * SpecularFactor, 1.0f);
+        }
+    }
+
+    output.FragColor = mytexture.Sample(gSampler, input.TexCoord0.xy)*
+                (AmbientColor + DiffuseColor + SpecularColor);
+
+	return output;
+}
+
+                                                                               
+ /* */

@@ -38,6 +38,9 @@ public class GLSL_TEST {
         TreeViewer tv = new TreeViewer(null, tree);
         tv.open();
 
+        ConvetVisitor cv = new ConvetVisitor();
+
+        System.out.println(cv.visit(tree));
        /* TestVisitor visitor = new TestVisitor();
         visitor.visit(tree);/**/
     }
