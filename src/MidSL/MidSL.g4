@@ -69,7 +69,7 @@ type_specifier_nonarray
     ;
 
 array_specifier :   LEFT_BRACKET expression? RIGHT_BRACKET;
-struct_specifier:   DOT expression;
+struct_specifier:   DOT (IDENTIFIER array_specifier* | function_call);
 
 basic_type
     :   void_type
@@ -146,7 +146,7 @@ function_definition
 
 function_declaration: return_Type function_name LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )?RIGHT_PAREN;
 
-function_call: function_name LEFT_PAREN (expression (COMMA expression)*)? RIGHT_PAREN;
+function_call: (array_struct_selection)? function_name LEFT_PAREN (expression (COMMA expression)*)? RIGHT_PAREN;
 
 return_Type: type_specifier;
 
@@ -189,7 +189,7 @@ declaration_statement
 
 simple_declaration: type_qualifier? type_specifier  simple_declarator (COMMA simple_declarator)*;
 simple_declarator: left_value array_specifier* (COLON semantics)? (assignment_expression)?;
-semantics: (IDENTIFIER | '_' | DECIMAL)+;
+semantics: IDENTIFIER;
 
 sample_declaration: SMPBUFFER type_qualifier? LEFT_PAREN IDENTIFIER '|' IDENTIFIER RIGHT_PAREN IDENTIFIER array_specifier*;
 texture_declaration: TXBUFFER type_qualifier? LEFT_PAREN IDENTIFIER '|' IDENTIFIER RIGHT_PAREN IDENTIFIER array_specifier*;
@@ -288,9 +288,9 @@ COMMA: ',';
 SHARP: '#';
 
 
-//GLSL保留函数
+//保留函数
 FUNC_KEYWORD
-    :   'dot'
+    :   'MATMUL'
     ;
 
 //元数据
@@ -318,7 +318,7 @@ VECTOR
     ;
 
 MATRIX
-    :   SCALA[2-4] ('x'[2-4])?
+    :   SCALA[2-4]'x'[2-4]?
     |   'matrix'
     ;
 
@@ -389,6 +389,7 @@ fragment
 LETTER
     :   [a-z]
     |   [A-Z]
+    |   '_'
     ;
 
 IDENTIFIER

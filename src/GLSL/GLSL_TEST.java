@@ -33,14 +33,7 @@ public class GLSL_TEST {
 
         System.out.println(tree.toStringTree());
 
-        List<String>  rules = new ArrayList<String>( );
 
-        TreeViewer tv = new TreeViewer(null, tree);
-        tv.open();
-
-        ConvetVisitor cv = new ConvetVisitor();
-
-        System.out.println(cv.visit(tree));
        /* TestVisitor visitor = new TestVisitor();
         visitor.visit(tree);/**/
     }

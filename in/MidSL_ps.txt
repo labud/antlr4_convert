@@ -1,4 +1,6 @@
-samplebuffer uniform ( Sample2D | SamplerState ) gSampler;
+#version 330
+
+samplebuffer uniform ( sampler2D | SamplerState ) gSampler;
 texturebuffer ( texture2D | Texture2D ) mytexture;
 
 struct DirectionalLight                                                             
@@ -18,7 +20,7 @@ cbuffer PSBuffer{
 };
 
 inbuffer PixelInputType{
-	float4 glPosition : SV_POSITION;  	
+	float4 glPosition : SV_POSITION;
 	float2 TexCoord0 : TEXCOORD0;
 	float3 Normal0 : NORMAL;
 	float3 WorldPos0 : POSITION;  
@@ -52,11 +54,10 @@ PixelOutputType main(PixelInputType input){
         }
     }
 
-    output.FragColor = mytexture.Sample(gSampler, input.TexCoord0.xy)*
+    output.FragColor = texture2D(gSampler, input.TexCoord0.xy)*
                 (AmbientColor + DiffuseColor + SpecularColor);
 
 	return output;
 }
 
-                                                                               
- /* */
+                

@@ -11,7 +11,6 @@ import MidSL.gen.MidSLVisitor;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.beans.Expression;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -26,16 +25,20 @@ import java.util.*;
  * operations with no return type.
  */
 
-public class HLSLVisitor extends MidSLBaseVisitor<String> {
+public class GLSLVisitor extends MidSLBaseVisitor<String> {
     /**
      * {@inheritDoc}
      *
+     boolean isFragment; //true表示是FS文件，false表示是VS文件
+     Set<String> notInFSfile; //不应该在FS中出现的变量，例如gl-Position
      * <p>The default implementation returns the result of calling
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     final String linebreak = "\r\n";
-    String data; //存储生成结果
 
+    String data;  //生成结果
+
+    boolean isInmain; //是否在main函数里面
     int indentNum;  //缩进次数
 
     TypeSpecifierCorvertor typeconvertor; //类型转换器
@@ -48,12 +51,12 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
     Set<String> StructName; //结构名称
     Map<String, String> FUNC;   //函数与函数对应关系
     Map<String, TypeClass> I2T; //变量与类型对应关系表
-    Map<String, String> Semantics;  //变量与语义对应关系表
 
 
     //构造函数
     void init(){
         indentNum = 0;
+        isInmain = false;
 
         typeconvertor = new TypeSpecifierCorvertor();
 
@@ -65,10 +68,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         StructName = new HashSet<>();
         FUNC = new HashMap<>();
         I2T = new HashMap<>();
-        Semantics = new HashMap<>();
     }
 
-    public HLSLVisitor(){
+    public GLSLVisitor(){
         init();
     }
 
@@ -76,7 +78,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         data = visit(tree);
     }
 
-    public void getFile(String filename) throws IOException{
+    public void getFile(String filename) throws IOException {
         try{
             File file =new File(filename);
 
@@ -99,6 +101,17 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
 
     public String getString(){
         return data;
+    }
+
+    //辅助函数
+    void printI2T(String name){
+        if(I2T.containsKey(name))
+            System.out.println(name + ":" + I2T.get(name).getprefix() + " " + I2T.get(name).gettail());
+    }
+
+    void printI2T(){
+        for(String name : I2T.keySet())
+            printI2T(name);
     }
 
     //返回前导缩进
@@ -182,46 +195,13 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         }
     };
 
-    //基本的聚合类型
-    class BasicStruc{
-        public  String Name = "";
-        public  String Type = "struct";
-        public  List<String> Variable = new ArrayList<>();
-
-        public String toString(){
-            StringBuilder sb = new StringBuilder();
-
-            sb.append(getIndent() + Type + " " + Name + '{' + linebreak);
-
-            enterSub(Name);
-            for(String name : Variable){
-                String fullname = AppendPrefix(name);
-                if(I2T.containsKey(fullname)){
-                    sb.append(getIndent());
-                    sb.append(I2T.get(fullname).getprefix());
-                    sb.append(" " + name);
-                    sb.append(I2T.get(fullname).gettail());
-
-                    if(Semantics.containsKey(fullname)){
-                        sb.append( " : " + Semantics.get(fullname));
-                    }
-
-                    sb.append(";" + linebreak);
-                }
-            }
-            exitSub(Name);
-
-            sb.append(getIndent() + '}');
-
-            return sb.toString();
-        };
-    };
 
     class Cbuffer extends BasicStruc{
         Cbuffer(){ Type = "cbuffer"; }
     };
 
     class StructVariable extends  BasicStruc{};
+
 
     @Override public String visitTest(MidSLParser.TestContext ctx) {    return visitChildren(ctx); }
     /**
@@ -235,6 +215,11 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         String htype, gtype, hname, gname;
         TypeClass tc;
 
+        //抓换宏定义
+        for(MidSLParser.PreprocessorContext pc : ctx.preprocessor()){
+            sb.append(visitPreprocessor(pc));
+        }
+
         //转换Sample
         for(MidSLParser.Sample_declarationContext smp: ctx.sample_declaration()){
             sb.append(visitSample_declaration(smp) + ";" + linebreak);
@@ -242,7 +227,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
 
         //转换TEXTURE
         for(MidSLParser.Texture_declarationContext tex: ctx.texture_declaration()){
-            sb.append(visitTexture_declaration(tex) + ";" + linebreak);
+            visitTexture_declaration(tex);
         }
 
         //转换struct
@@ -253,21 +238,22 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         //转换Cbufer
         String cbuffer = visitCbuffer_declaration(ctx.cbuffer_declaration());
         if(!cbuffer.isEmpty())
-            sb.append(linebreak + cbuffer + ";" + linebreak);
+            sb.append(linebreak + cbuffer + linebreak);
 
         //转换inbuffer
         String inbuffer = visitInbuffer_declaration(ctx.inbuffer_declaration());
         if(!cbuffer.isEmpty())
-            sb.append(linebreak + inbuffer + ";" + linebreak);
+            sb.append(linebreak + inbuffer + linebreak);
 
         //转换outbuffer
         String outbuffer = visitOutbuffer_declaration(ctx.outbuffer_declaration());
         if(!cbuffer.isEmpty())
-            sb.append(linebreak + outbuffer + ";" + linebreak);
+            sb.append(linebreak + outbuffer +  linebreak);
 
         String statement_list = visitStatement_list(ctx.statement_list());
         if(!statement_list.isEmpty())
             sb.append(linebreak + statement_list);
+
         return sb.toString();
     }
     /**
@@ -277,9 +263,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitPreprocessor(MidSLParser.PreprocessorContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        return ctx.getText();
+        return "#" + visitVersion_pre(ctx.version_pre()) + linebreak;
     }
     /**
      * {@inheritDoc}
@@ -288,9 +274,11 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitVersion_pre(MidSLParser.Version_preContext ctx){
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        return ctx.getText();
+
+        String profile = ctx.VERSOIN_PROFILE() != null ? " " + ctx.VERSOIN_PROFILE().getText() :  "";
+        return "version " + visitInteger(ctx.integer()) + profile;
     }
     /**
      * {@inheritDoc}
@@ -310,7 +298,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitStorage_qualifier(MidSLParser.Storage_qualifierContext ctx){
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         return ctx.getText();
     }
@@ -365,8 +353,8 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitType_specifier(MidSLParser.Type_specifierContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
-                return "";
+        if(ctx == null || ctx.getText().isEmpty())
+            return "";
         String noarray = visitType_specifier_nonarray(ctx.type_specifier_nonarray());
         String arraytail = "";
         for(MidSLParser.Array_specifierContext as : ctx.array_specifier())
@@ -394,7 +382,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitArray_specifier(MidSLParser.Array_specifierContext ctx) {
-          return '[' + visitExpression(ctx.expression()) + ']';
+        return '[' + visitExpression(ctx.expression()) + ']';
     }
     /**
      * {@inheritDoc}
@@ -425,7 +413,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitBasic_type(MidSLParser.Basic_typeContext ctx){
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         if(ctx.void_type() != null)
@@ -444,9 +432,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitVoid_type(MidSLParser.Void_typeContext ctx){
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        return typeconvertor.toHLSL(ctx.getText());
+        return typeconvertor.toGLSL(ctx.getText());
     }
     /**
      * {@inheritDoc}
@@ -455,9 +443,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitScala_type(MidSLParser.Scala_typeContext ctx){
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        return typeconvertor.toHLSL(ctx.getText());
+        return typeconvertor.toGLSL(ctx.getText());
     }
     /**
      * {@inheritDoc}
@@ -466,9 +454,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitVector_type(MidSLParser.Vector_typeContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        return typeconvertor.toHLSL(ctx.getText());
+        return typeconvertor.toGLSL(ctx.getText());
     }
     /**
      * {@inheritDoc}
@@ -477,9 +465,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitMatrix_type(MidSLParser.Matrix_typeContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        return typeconvertor.toHLSL(ctx.getText());
+        return typeconvertor.toGLSL(ctx.getText());
     }
     /**
      * {@inheritDoc}
@@ -488,7 +476,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitExpression(MidSLParser.ExpressionContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         if(ctx.primary_expression()  != null)
@@ -501,7 +489,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
                 //前置增减
                 if( t.charAt(0) == '+'  || t.charAt(1) == '-')
                     return ctx.INCREAMENT_OP().getText() + visitExpression(ctx.expression(0));
-                //否则是后置增减
+                    //否则是后置增减
                 else
                     return  visitExpression(ctx.expression(0)) + ctx.INCREAMENT_OP().getText();
             }
@@ -512,10 +500,8 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         }
         //二元运算
         else if(ctx.expression().size() == 2){
-            //对于乘法要特殊处理，因为DX11中左边为矩阵的乘法是不存在的
-            if(ctx.MULDIV_OP() != null){
+            if(ctx.MULDIV_OP() != null)
                 return visitExpression(ctx.expression(0)) + " " + ctx.MULDIV_OP().getText() + " " + visitExpression(ctx.expression(1));
-            }
             else if(ctx.ADDDIV_OP() != null)
                 return visitExpression(ctx.expression(0)) + " " + ctx.ADDDIV_OP().getText() + " " + visitExpression(ctx.expression(1));
             else if(ctx.SHIFT_OP() != null)
@@ -548,7 +534,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         else if(ctx.basic_type() != null){
             sb.append(visitBasic_type(ctx.basic_type()) + "(");
             for(int i = 0 ; i < ctx.expression().size(); ++i){
-                if(i != 0) sb.append(",");
+                if(i != 0) sb.append(", ");
                 sb.append( visitExpression(ctx.expression(i)) );
             }
             sb.append(")");
@@ -573,7 +559,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitConstant_expression(MidSLParser.Constant_expressionContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         if(ctx.integer() != null)
@@ -590,7 +576,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitLeft_value(MidSLParser.Left_valueContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         if(ctx.function_call() != null)
@@ -606,7 +592,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitArray_struct_selection(MidSLParser.Array_struct_selectionContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();
@@ -626,7 +612,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
             else if(info.charAt(i) == ']')
                 bracket_num--;
             else if(info.charAt(i) == '.' && bracket_num == 0){
-                    sb.append(visitStruct_specifier(ctx.struct_specifier(snum++)));
+                sb.append(visitStruct_specifier(ctx.struct_specifier(snum++)));
             }
         }
 
@@ -639,7 +625,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitAssignment_expression(MidSLParser.Assignment_expressionContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         return ctx.ASSIGNMENT_OP().getText() + " " +  visitExpression(ctx.expression());
     }
@@ -650,7 +636,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitArithmetic_assignment_expression(MidSLParser.Arithmetic_assignment_expressionContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         return ctx.ARITHMETIC_ASSIGNMENT_OP().getText() + " " + visitExpression(ctx.expression());
     }
@@ -661,36 +647,51 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitFunction_definition(MidSLParser.Function_definitionContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();
 
-        //返回类型
-        sb.append(getIndent() + visitReturn_Type(ctx.return_Type()));
-
-        //名字
+        //名字，先判断是不是全局main函数
         String name = visitFunction_name(ctx.function_name());
+        if(name.equals("main") && prefix.size() == 0) isInmain = true;
+
+        sb.append(getIndent());
+
+        //返回类型
+        if(isInmain)
+            sb.append("void");
+        else
+            sb.append(visitReturn_Type(ctx.return_Type()));
+
         sb.append(" " + name);
 
         //参数表
         sb.append("(");
-        for(int i = 0 ; i < ctx.func_decl_member().size(); ++i){
-            if(i!= 0) sb.append(", ");
-            String dec = visitFunc_decl_member(ctx.func_decl_member(i));
-            String[] type_id = dec.split(" ");
+        if(!isInmain){
+            for(int i = 0 ; i < ctx.func_decl_member().size(); ++i){
+                if(i!= 0) sb.append(", ");
+                String dec = visitFunc_decl_member(ctx.func_decl_member(i));
+                String[] type_id = dec.split(" ");
 
-            TypeClass tc = new TypeClass("", type_id[0]);
-            I2T.put(AppendPrefix(type_id[1]), tc);
-            sb.append(dec);
+                TypeClass tc = new TypeClass("", type_id[0]);
+                I2T.put(AppendPrefix(type_id[1]), tc);
+                sb.append(dec);
+            }
         }
         sb.append(") {" + linebreak);
 
         enterSub(name);
+        if(isInmain){ //如果是main函数先声明input变量
+            sb.append(getIndent() + inb.Name + " ");
+            sb.append(ctx.func_decl_member(0).IDENTIFIER().getText() + " = ");
+            sb.append("get" + inb.Name + "();" + linebreak);
+        }
         sb.append(visitStatement_list(ctx.statement_list()));
         exitSub(name);
 
         sb.append(getIndent() + "}" + linebreak);
+        if(name.equals("main")) isInmain = false;
         return sb.toString();
     }
     /**
@@ -734,16 +735,12 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         StringBuilder sb = new StringBuilder();
 
         String name = visitFunction_name(ctx.function_name());
-        if(FUNC.containsKey(name))
-            name = FUNC.get(name);
 
         //处理乘法
         if(name.equals("MATMUL")){
-            sb.append("mul(");
-            sb.append(visitExpression(ctx.expression(1)));
-            sb.append(", ");
-            sb.append(visitExpression(ctx.expression(0)));
-            sb.append(")");
+            sb.append("(" + visitExpression(ctx.expression(0)));
+            sb.append(" * ");
+            sb.append(visitExpression(ctx.expression(1)) + ")");
         }
         else{
             sb.append(name);
@@ -766,7 +763,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitReturn_Type(MidSLParser.Return_TypeContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         return visitType_specifier(ctx.type_specifier());
     }
@@ -779,10 +776,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
     @Override public String visitFunction_name(MidSLParser.Function_nameContext ctx) {
         if(ctx == null || ctx.getText().isEmpty())
             return "";
-
-        if(ctx.FUNC_KEYWORD() != null)
-            return ctx.FUNC_KEYWORD().getText();
-        return ctx.IDENTIFIER().getText();
+        return ctx.getText();
     }
     /**
      * {@inheritDoc}
@@ -802,7 +796,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitStatement_list(MidSLParser.Statement_listContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();
@@ -832,7 +826,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitSimple_statement(MidSLParser.Simple_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         if(ctx.function_definition_statement() != null)
@@ -857,12 +851,12 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitCompoud_statement(MidSLParser.Compoud_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         return  getIndent() + '{' + linebreak +
-                 visitStatement_list(ctx.statement_list()) +
-                 getIndent() + '}' + linebreak;
+                visitStatement_list(ctx.statement_list()) +
+                getIndent() + '}' + linebreak;
     }
     /**
      * {@inheritDoc}
@@ -871,7 +865,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitBasic_statement(MidSLParser.Basic_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         if(ctx.declaration_statement() != null)
@@ -888,7 +882,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitDeclaration_statement(MidSLParser.Declaration_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
 
@@ -932,11 +926,6 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
             //在I2T表中记录变量信息
             I2T.put(fullname, tc);
 
-            //记录semantics信息
-            String semantics = visitSemantics(ctx.simple_declarator(i).semantics());
-            if(!semantics.isEmpty())
-                Semantics.put(fullname,semantics);
-
             if(i != 0) sb.append(", ");
             sb.append(visitSimple_declarator(ctx.simple_declarator(i)));
         }
@@ -949,7 +938,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitSimple_declarator(MidSLParser.Simple_declaratorContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();
@@ -984,9 +973,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitSample_declaration(MidSLParser.Sample_declarationContext ctx) {
-                if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
-        String htype = ctx.IDENTIFIER(1).getText();
+        String htype = ctx.IDENTIFIER(0).getText();
         String hname = ctx.IDENTIFIER(2).getText();
         String qualifier = visitType_qualifier(ctx.type_qualifier());
         if(!qualifier.isEmpty()) qualifier +=" ";
@@ -999,14 +988,14 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitTexture_declaration(MidSLParser.Texture_declarationContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         String gname = ctx.IDENTIFIER(0).getText();
         String htype = ctx.IDENTIFIER(1).getText();
         String hname = ctx.IDENTIFIER(2).getText();
 
-        FUNC.put(gname, hname+".Sample");
+        FUNC.put(htype + "." + hname, gname);
         return getIndent() + htype + " " + hname;
     }
     /**
@@ -1016,7 +1005,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitStruct_declaration(MidSLParser.Struct_declarationContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         StructVariable strV = new StructVariable();
@@ -1043,17 +1032,12 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
                 //在I2T表中记录变量信息
                 I2T.put(fullname, tc);
 
-                //记录semantics信息
-                String semantics = visitSemantics(dtor.semantics());
-                if(!semantics.isEmpty())
-                    Semantics.put(fullname,semantics);
-
                 strV.Variable.add(hname); //将变量加入结构中
             }
         }
         exitSub(strV.Name);
 
-        return strV.toString();
+        return strV.toStruct();
     }
     /**
      * {@inheritDoc}
@@ -1061,8 +1045,9 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * <p>The default implementation returns the result of calling
      * {@link #visitChildren} on {@code ctx}.</p>
      */
+
     @Override public String visitCbuffer_declaration(MidSLParser.Cbuffer_declarationContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
 
         cb.Name = ctx.IDENTIFIER().getText();
@@ -1088,16 +1073,12 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
                 //在I2T表中记录变量信息
                 I2T.put(fullname, tc);
 
-                //记录semantics信息
-                String semantics = visitSemantics(dtor.semantics());
-                if(!semantics.isEmpty())
-                    Semantics.put(fullname,semantics);
-
                 cb.Variable.add(hname); //将变量加入结构中
             }
         }
         exitSub(cb.Name);
-        return cb.toString();
+
+        return cb.toGlobalVariable("uniform");
     }
     /**
      * {@inheritDoc}
@@ -1106,8 +1087,10 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitInbuffer_declaration(MidSLParser.Inbuffer_declarationContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
+
+        StringBuilder sb = new StringBuilder();
 
         inb.Name = ctx.IDENTIFIER().getText();
         TypeClass tc = new TypeClass("", "struct");
@@ -1132,17 +1115,18 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
                 //在I2T表中记录变量信息
                 I2T.put(fullname, tc);
 
-                //记录semantics信息
-                String semantics = visitSemantics(dtor.semantics());
-                if(!semantics.isEmpty())
-                    Semantics.put(fullname,semantics);
-
                 inb.Variable.add(hname); //将变量加入结构中
             }
         }
         exitSub(inb.Name);
 
-        return inb.toString();
+        sb.append(inb.toStruct() + ";" + linebreak);
+        sb.append(linebreak);
+        sb.append(inb.toGlobalVariable("in"));
+        sb.append(linebreak);
+        sb.append(inb.toGetFunction());
+
+        return sb.toString();
     }
     /**
      * {@inheritDoc}
@@ -1151,8 +1135,10 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitOutbuffer_declaration(MidSLParser.Outbuffer_declarationContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
+
+        StringBuilder sb = new StringBuilder();
 
         outb.Name = ctx.IDENTIFIER().getText();
         TypeClass tc = new TypeClass("", "struct");
@@ -1177,17 +1163,18 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
                 //在I2T表中记录变量信息
                 I2T.put(fullname, tc);
 
-                //记录semantics信息
-                String semantics = visitSemantics(dtor.semantics());
-                if(!semantics.isEmpty())
-                    Semantics.put(fullname,semantics);
-
                 outb.Variable.add(hname); //将变量加入结构中
             }
         }
         exitSub(outb.Name);
 
-        return outb.toString();
+        sb.append(outb.toStruct() + ";" + linebreak);
+        sb.append(linebreak);
+        sb.append(outb.toGlobalVariable("out"));
+        sb.append(linebreak);
+        sb.append(outb.toSetFunction());
+
+        return sb.toString();
     }
     /**
      * {@inheritDoc}
@@ -1207,7 +1194,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitFunction_definition_statement(MidSLParser.Function_definition_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         return visitFunction_definition(ctx.function_definition());
     }
@@ -1218,7 +1205,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitAssignment_statement(MidSLParser.Assignment_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         StringBuilder sb = new StringBuilder();
 
@@ -1376,7 +1363,7 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override public String visitFor_cond_statement(MidSLParser.For_cond_statementContext ctx) {
-       if(ctx == null || ctx.getText().isEmpty())
+        if(ctx == null || ctx.getText().isEmpty())
             return "";
         return visitExpression(ctx.expression()) + ";";
     }
@@ -1415,8 +1402,117 @@ public class HLSLVisitor extends MidSLBaseVisitor<String> {
         else {
             if(ctx.expression() == null)
                 return getIndent() + "return ;" + linebreak;
-            return getIndent() + "return " + visitExpression(ctx.expression()) + " ;" + linebreak;
+            else{
+                //在main函数中
+                if(isInmain){
+                    return getIndent() + "set" + outb.Name + "(" + visitExpression(ctx.expression())+");" + linebreak;
+                }
+                else
+                    return getIndent() + "return " + visitExpression(ctx.expression()) + " ;" + linebreak;
+            }
         }
 
     }
+
+
+
+
+    //基本的聚合类型
+    class BasicStruc{
+        public  String Name = "";
+        public  String Type = "struct";
+        public  List<String> Variable = new ArrayList<>();
+
+        //返回结构字符串
+        public String toStruct(){
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(getIndent() + Type + " " + Name + '{' + linebreak);
+
+            enterSub(Name);
+            for(String name : Variable){
+                String fullname = AppendPrefix(name);
+                if(I2T.containsKey(fullname)){
+                    sb.append(getIndent());
+                    sb.append(I2T.get(fullname).getprefix());
+                    sb.append(" " + name);
+                    sb.append(I2T.get(fullname).gettail());
+
+
+                    sb.append(";" + linebreak);
+                }
+            }
+            exitSub(Name);
+
+            sb.append(getIndent() + '}');
+
+            return sb.toString();
+        };
+
+        //返回全局变量
+        public String toGlobalVariable(String qualifer){
+            StringBuilder sb = new StringBuilder();
+
+            enterSub(Name);
+            exitSub();
+            for(String name : Variable){
+                String fullname = AppendPrefix(name);
+                //System.out.println("****" + fullname);
+                if(I2T.containsKey(fullname)){
+                    //.out.println("****" + fullname);
+                    sb.append(getIndent());
+                    if(!qualifer.isEmpty())
+                        sb.append(qualifer + " ");
+                    sb.append(I2T.get(fullname).getprefix());
+                    sb.append(" " + name);
+                    sb.append(I2T.get(fullname).gettail());
+                    sb.append(";" + linebreak);
+                }
+            }
+            exitSub(Name);
+            enterSub();
+
+            return sb.toString();
+        };
+
+        //返回getInput函数
+        public String toGetFunction(){
+            StringBuilder sb = new StringBuilder();
+            String paraname = "tmp";
+
+            sb.append(getIndent() + Name + " get" + Name + "()" + linebreak);
+            sb.append(getIndent() + "{" + linebreak);
+
+            enterSub(Name);
+            sb.append(getIndent() + Name + " " + paraname + ";" + linebreak);
+            for(String name : Variable){
+                sb.append(getIndent());
+                sb.append(paraname + "." + name + " = " + name + ";" + linebreak);
+            }
+            sb.append(getIndent() + "return " + paraname + ";" + linebreak);
+            exitSub(Name);
+
+            sb.append(getIndent() + "}" + linebreak);
+            return sb.toString();
+        };
+
+        //返回setOutput函数
+        public String toSetFunction(){
+            StringBuilder sb = new StringBuilder();
+            String paraname = "tmp";
+
+            sb.append(getIndent() + "void set" + Name + "(" + Name + " " + paraname + ")" + linebreak);
+            sb.append(getIndent() + "{" + linebreak);
+
+            enterSub(Name);
+            for(String name : Variable){
+                sb.append(getIndent());
+                sb.append( name + " = " + paraname + "." + name + ";" + linebreak);
+            }
+            exitSub(Name);
+
+            sb.append(getIndent() + "}" + linebreak);
+            return sb.toString();
+        };
+    };
 }

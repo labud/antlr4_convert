@@ -18,6 +18,7 @@ public class MidSL_TEST {
     public static void main(String[] args) throws Exception{
         String inputFile = null;
         if ( args.length>0 ) inputFile = args[0];
+        inputFile = "in\\MidSL_vs.txt";
         InputStream is = System.in;
         if ( inputFile!=null ) {
             is = new FileInputStream(inputFile);
@@ -32,11 +33,18 @@ public class MidSL_TEST {
 
         //System.out.println(tree.getText());
 
-        String filename = "";
-        HLSLVisitor hv = new HLSLVisitor(filename);
+        HLSLVisitor hv = new HLSLVisitor();
+        GLSLVisitor gv = new GLSLVisitor();
 
-        String result =  hv.visit(tree);
+        hv.run(tree);
+        gv.run(tree);
 
-        System.out.println(result);
+        String hlfilename = "HLSL.txt";
+        String glfilename = "GLSL.txt";
+        hv.getFile(hlfilename);
+        gv.getFile(glfilename);
+
+        //System.out.println(hv.getString());
+        //System.out.println(gv.getString());
     }
 }
