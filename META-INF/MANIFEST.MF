@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: lib\antlr-4.5.1-complete.jar
-Main-Class: MidSL.MidSL_TEST
-

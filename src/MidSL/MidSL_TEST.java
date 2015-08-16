@@ -19,21 +19,20 @@ import MidSL.gen.*;
 enum resultType{GLSL, HLSL;};
 
 public class MidSL_TEST {
-    static final int offset = 3;
     public static void main(String[] args) throws Exception{
         /*System.out.println(args.length);
         for(String t : args)
             System.out.println(t);*/
-        if( args.length < offset + 2 ||
-            args.length > offset + 3 ||
-            !(args[offset+1].equals("-h") || args[offset+1].equals("-g"))
+        if( args.length <  2 ||
+            args.length > 3 ||
+            !(args[1].equals("-h") || args[1].equals("-g"))
             ){
             System.out.print("Error: invalid arguments:");
             System.out.print("inFileName (-g | -h) [outFileName]");
             return ;
         }
 
-        String inputFile = args[offset];
+        String inputFile = args[0];
         File file =  new File(inputFile);
         if(!file.exists()){
             System.out.println("Error : can not find input file!");
@@ -45,12 +44,12 @@ public class MidSL_TEST {
         }
 
         resultType type = resultType.GLSL;
-        if(args[offset+1].equals("-h"))
+        if(args[1].equals("-h"))
             type = resultType.HLSL;
 
         String outfile = inputFile + (type == resultType.GLSL ? ".g" : ".h");
-        if(args.length > offset + 2)
-            outfile = args[offset + 2];
+        if(args.length > 2)
+            outfile = args[2];
 
 
         ANTLRInputStream input = new ANTLRInputStream(is);
