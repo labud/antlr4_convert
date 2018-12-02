@@ -3,7 +3,7 @@ grammar GLSL;
 prog:
     preprocessor* statement_list;
 
-//ºê¶¨Òå
+//å®å®šä¹‰
 preprocessor
     :   SHARP version_pre
     ;
@@ -18,7 +18,7 @@ VERSOIN_PROFILE
     |   'es'
     ;
 
-//ÀàÐÍÐÞÊÎÓï
+//ç±»åž‹ä¿®é¥°è¯­
 type_qualifier
     :   (storage_qualifier
     |   layout_qualifier
@@ -57,14 +57,14 @@ invariant_qualifier:    'invariant';
 
 precise_qualifier:    'precise';
 
-//ÔªÊý¾Ý
+//å…ƒæ•°æ®
 integer: DECIMAL |  OCTAL | HEX ;
 
 float_num: FLOAT_NUM;
 
 bool_num : 'true' | 'false';
 
-//ÔªÊý¾ÝÀàÐÍ
+//å…ƒæ•°æ®ç±»åž‹
 type_specifier: type_specifier_nonarray array_specifier*;
 
 type_specifier_nonarray
@@ -102,7 +102,7 @@ int_opaque_type: INT_OPAQUE;
 u_int_opaque_type: U_INT_OPAQUE;
 
 
-//±í´ïÊ½
+//è¡¨è¾¾å¼
 
 expression
     :   primary_expression
@@ -141,7 +141,7 @@ assignment_expression: ASSIGNMENT_OP expression;
 
 arithmetic_assignment_expression: ARITHMETIC_ASSIGNMENT_OP expression;
 
-//º¯Êý
+//å‡½æ•°
 function_definition
     : return_Type function_name
         LEFT_PAREN (func_decl_member  (COMMA func_decl_member)* )? RIGHT_PAREN LEFT_BRACE
@@ -159,7 +159,7 @@ function_name: IDENTIFIER;
 
 func_decl_member: type_specifier IDENTIFIER;
 
-//Óï¾ä(¿é)
+//è¯­å¥(å—)
 statement_list: statement*;
 
 statement
@@ -185,7 +185,7 @@ basic_statement
     |   expression_statement
     ;
 
-//ÉùÃ÷Óï¾ä(º¬³õÊ¼»¯)
+//å£°æ˜Žè¯­å¥(å«åˆå§‹åŒ–)
 declaration_statement
     :   struct_declaration
     |   simple_declaration
@@ -197,28 +197,28 @@ simple_declarator: left_value array_specifier* (assignment_expression)?;
 
 struct_declaration: type_qualifier? STRUCT IDENTIFIER LEFT_BRACE (simple_declaration SEMICOLON)+ RIGHT_BRACE;
 
-//º¯Êý¶¨ÒåÓï¾ä
+//å‡½æ•°å®šä¹‰è¯­å¥
 function_definition_statement: function_definition;
 
-//¸³ÖµÓï¾ä
+//èµ‹å€¼è¯­å¥
 assignment_statement: left_value array_struct_selection? (assignment_expression | arithmetic_assignment_expression);
 
-//±í´ïÊ½Óï¾ä
+//è¡¨è¾¾å¼è¯­å¥
 expression_statement: expression;
 
-//Ìõ¼þÑ¡ÔñÓï¾ä
+//æ¡ä»¶é€‰æ‹©è¯­å¥
 selection_statement:  IF LEFT_PAREN expression RIGHT_PAREN selection_rest_statement;
 selection_rest_statement: statement (ELSE statement)? ;
 
-//switchÓï¾ä
+//switchè¯­å¥
 switch_statement: SWITCH LEFT_PAREN expression RIGHT_PAREN LEFT_BRACE statement_list RIGHT_BRACE;
 
 case_label
     : CASE expression COLON
-    | DEFUALT COLON
+    | DEFAULT COLON
     ;
 
-//Ñ­»·Óï¾ä
+//å¾ªçŽ¯è¯­å¥
 iteration_statement
     :   WHILE LEFT_PAREN expression RIGHT_PAREN statement
     |   DO statement WHILE LEFT_PAREN expression RIGHT_PAREN SEMICOLON
@@ -233,7 +233,7 @@ for_cond_statement: expression SEMICOLON;
 
 for_rest_statement: (basic_statement (',' basic_statement)*)? ;
 
-//Ìø×ªÓï¾ä
+//è·³è½¬è¯­å¥
 jump_statement
     :   CONTINUE SEMICOLON
     |   BREAK SEMICOLON
@@ -242,7 +242,7 @@ jump_statement
     ;
 
 /**
- *´Ê·¨
+ *è¯æ³•
  */
 
 STRUCT: 'struct';
@@ -262,7 +262,7 @@ RETURN: 'return';
 
 SWITCH: 'switch';
 CASE: 'case';
-DEFUALT: 'defualt';
+DEFAULT: 'default';
 
 LEFT_PAREN: '(';
 RIGHT_PAREN: ')';
@@ -279,7 +279,7 @@ SEMICOLON: ';';
 COMMA: ',';
 SHARP: '#';
 
-//ÔªÊý¾Ý
+//å…ƒæ•°æ®
 DECIMAL: [1-9]  DIGIT* INTEGER_SUFFIX?;
 OCTAL: '0' OCTAL_DIGIT* INTEGER_SUFFIX?;
 HEX:  ('0x' | '0X') HEX_DIGIT+ INTEGER_SUFFIX?;
@@ -290,7 +290,7 @@ FLOAT_NUM
     |   DIGIT+ EXPONENT FLOAT_SUFFIX?
     ;
 
-//ÔªÊý¾ÝÀàÐÍ
+//å…ƒæ•°æ®ç±»åž‹
 SCALA
     :   'bool'
     |   'int'
@@ -315,7 +315,7 @@ U_INT_OPAQUE: 'u'BASIC_OPAQUE_TYPE | 'atomic_uint';
 BASIC_OPAQUE_TYPE:  ('sampler' | 'image')
     ('1D'|'2D'|'3D'|'Cube'|'2DRect'|'1DArray'|'2DArray'|'Buffer'|'2DMS'|'2DMSArray'|'CubeArray');
 
-//±í´ïÊ½
+//è¡¨è¾¾å¼
 INCREAMENT_OP : '++' | '--';
 
 UNARY_OP :  '~' | '!';
@@ -344,7 +344,7 @@ ARITHMETIC_ASSIGNMENT_OP
     ;
 
 /**
- *¸¨Öú´Ê·¨
+ *è¾…åŠ©è¯æ³•
  */
 
 fragment
@@ -378,7 +378,7 @@ IDENTIFIER
     ;
 
 
-//×¢ÊÍ
+//æ³¨é‡Š
 COMMENT
     :   '/*' .*? '*/'    -> channel(HIDDEN) // match anything between /* and */
     ;
